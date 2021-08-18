@@ -12,6 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fabiano.clients.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -22,6 +23,7 @@ public abstract class Payment implements Serializable {
 	private Integer id;
 	private Integer status;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="order_id")
 	@MapsId
