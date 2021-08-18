@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fabiano.clients.domain.enums.ClientType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Client implements Serializable {
@@ -30,7 +29,7 @@ public class Client implements Serializable {
 	private String cpfOrCnpj;
 	private Integer tipo;
 	
-	@JsonManagedReference
+	
 	@OneToMany(mappedBy="client")
 	private List<Address> address = new ArrayList<>();
 	
@@ -38,7 +37,8 @@ public class Client implements Serializable {
 	@CollectionTable(name= "PHONE")
 	private Set<String> phones = new HashSet<>();
 	
-	
+	@OneToMany(mappedBy="client")
+	private List<Order> orders = new ArrayList<>();
 	
 	public Client() {
 		
@@ -108,6 +108,16 @@ public class Client implements Serializable {
 	public void setPhones(Set<String> phones) {
 		this.phones = phones;
 	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -125,7 +135,7 @@ public class Client implements Serializable {
 		Client other = (Client) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 	
 	
 	
